@@ -1,0 +1,87 @@
+@mixin plusButton {
+  width: 25px;
+  height: 25px;
+  background-color: $green_main;
+  border-radius:9999px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden;
+  &::before {
+    transform: rotate(90deg);
+  }
+  &::before,&::after {
+    content: '';
+    background: #fff;
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    top: 11px;
+    left: 4px;
+   }
+@media(min-width: 768px) {
+  width: 35px;
+  height: 35px;
+  &::before,&::after {
+    width: 20px;
+    height: 2px;
+    top: 17px;
+    left: 8px;
+  }
+   
+}
+}
+
+@mixin button {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: $blue_light;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+}
+
+@mixin deleteButton {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border-radius: 9999px;
+  transition: background 0.3s linear;
+  cursor: pointer;
+  &:hover {
+    
+      background:#FF0505;
+    
+    &::after,&::before {
+      background: #fff;
+    }
+  }
+  &::after {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(-45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+  }
+  &::before {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+  }
+}
