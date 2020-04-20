@@ -1,6 +1,7 @@
 <template lang="pug">
   div
     div.taskContainer
+      div.taskExpandSubtask
       div.taskCircle
         img(src="../assets/CheckIcon.svg")
       h2.taskText Какая-то задача
@@ -61,6 +62,7 @@ export default {
     border-bottom: 1px solid #ccc;
     margin: 0 20px;
     position: relative;
+    margin-top: 20px;
     &:hover {
       .taskActionsContainer {
           opacity: 1;
@@ -94,18 +96,6 @@ export default {
     margin-right: 10px;
     margin-bottom: 5px;
     position: relative;
-    &::after {
-      content: '';
-      	width: 0;
-        height: 0;
-        border-left: 5px solid transparent;
-        border-right: 5px solid transparent;
-        border-top: 5px solid #555;
-        position: absolute;
-        transform: rotate(-90deg);
-        right: 20px;
-        top: 6px;
-    }
     img {
       display: none;
     }
@@ -114,6 +104,19 @@ export default {
         display: block;
       }
     }
+  }
+
+  .taskExpandSubtask {
+    	  width: 0;
+        height: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #555;
+        position: absolute;
+        transform: rotate(-90deg);
+        left: -10px;
+        top: 7px;
+        cursor: pointer;
   }
   .taskEditButton {
     width: 16px;
@@ -231,6 +234,7 @@ export default {
     margin-left: 35px;
     margin-top: 25px;
     padding-bottom: 0;
+    display: none;
   }
   .subTaskCircle {
     @include circle;

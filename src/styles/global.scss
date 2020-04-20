@@ -52,3 +52,22 @@ img {
   margin: 0 auto;
   display: grid;
 }
+
+@keyframes spin1 {
+  from {
+    transform: rotate(90deg)
+  }
+ 
+  to {
+    transform: rotate(calc( 90deg + 360deg))
+  }
+}
+@keyframes spin2 {
+  from {
+    transform: rotate(0deg)
+  }
+ 
+  to {
+    transform: rotate(360deg)
+  }
+}
