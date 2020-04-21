@@ -7,7 +7,7 @@ const routes = [
     component: Home
   },
   {
-    path: '/note',
+    path: '/note/:id',
     component: NoteEdit
   }
 ]

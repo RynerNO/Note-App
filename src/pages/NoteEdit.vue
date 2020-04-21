@@ -3,65 +3,192 @@
     header.noteHeader
       div.noteBurgerButton(@click="toogleSidebar")
         img(src="../assets/BurgerButton.svg" alt="Меню")
-      div.addTaskButton
+      div.addTaskButton(@click="addTask")
         span Добавить задание
       div.undoRedoSaveContainer
-        div.undoButton.menuButton
+        div.undoButton.menuButton(@click="undoChange")
           img(src="../assets/UndoButton.svg" alt="Отменить")
           span Отменить
-        div.redoButton.menuButton
+        div.redoButton.menuButton(@click="redoChange")
           img(src="../assets/RedoButton.svg" alt="Вернуть")
           span Вернуть
-        div.saveButton.menuButton 
+        div.saveButton.menuButton(@click="saveChanges")
           img(src="../assets/SaveButton.svg")
           span Сохранить
       div.cancelDeleteContainer
-        div.deleteButton.menuButton
+        div.deleteButton.menuButton(@click="deleteNoteModalVisible = true")
           img(src="../assets/DeleteButton.svg")
           span Удалить
-        div.cancelButton.menuButton
+        div.cancelButton.menuButton(@click="leaveNoteModalVisible = true")
           img(src="../assets/CancelButton.svg")
           span Выйти
       
-    aside.noteSidebar(ref="sidebar")
+    aside.noteSidebar.noteSidebarToggle(ref="sidebar")
       div.noteSidebarNav
-      div.noteSidebarNavButton.noteSidebarNavButtonActive 
+      div.noteSidebarNavButton(@click="currentFilter = activeTasksFilter" :class="{'noteSidebarNavButtonActive': currentFilter === activeTasksFilter}") 
         img(src="../assets/NoteSidebarActive.svg")
         |Активно 
-      div.noteSidebarNavButton 
+      div.noteSidebarNavButton(@click="currentFilter = plannedTaskFilter" :class="{'noteSidebarNavButtonActive': currentFilter === plannedTaskFilter}")  
         img(src="../assets/NoteSidebarPlanned.svg")
         |Запланировано
-      div.noteSidebarNavButton 
-        img(src="../assets/NoteSidebarComplited.svg")
+      div.noteSidebarNavButton(@click="currentFilter = completedTaskFilter" :class="{'noteSidebarNavButtonActive': currentFilter === completedTaskFilter}") 
+        img(src="../assets/NoteSidebarCompleted.svg")
         |Выполнено
 
-    div.noteContent
+    div.noteContent.noteContentToggle(ref="content")
       div.titleContainer
-        h1.title Какая-то заметка
+        p.title(v-show="!editTitleInput" @click="editTitle") {{ note.name }}
+        input.title.editTitleInput(
+          @blur="editTitleInput = false; pushChange()"
+          v-show="editTitleInput" ref="editTitleInput" v-model="note.name" v-autowidth="{maxWidth: '320px', minWidth:'30px'}")
         hr.titleUnderline
       p.currentFilter Активно
       div.tasksContainer
-        task
-        task
-        task
-
+        task-view(v-for="task of note.tasks" :key="task.id" :id="task.id" :text="task.text" :priority="task.priority" :date="task.date" :subTasks="task.subTasks" @taskChanged="changeTask($event)" @taskDelete="deleteTask(task.id)")
+    modal-confirm(v-if="deleteNoteModalVisible" @modalClose="deleteNoteModalVisible = false;" @modalConfirm="deleteNote" :message="'Удалить заметку?'" :confirmButtonText="'Удалить'")
+    modal-confirm(v-if="leaveNoteModalVisible" @modalClose="leaveNoteModalVisible = false;" @modalConfirm="leaveNoteEdit" :message="'Внесенные правки будут утеряны, вы уверены?'" :confirmButtonText="'Выйти'")
 </template>
 
 <script>
-import Task from '@components/Task.vue'
+import TaskView from '@components/TaskView.vue'
+import { mapState } from 'vuex'; 
+import cloneDeep from 'lodash.clonedeep'
+import uniqid from 'uniqid';
+import ModalConfirm from '@components/ModalConfirm.vue'
+import Calendar from '@components/Calendar.vue'
 export default {
 components: {
-  Task
+  TaskView,
+  ModalConfirm,
+  Calendar
+},
+data() {
+  return {
+    editTitleInput: false,
+    undoStack: [],
+    note: {
+      name: 'Новая заметка',
+      tasks: [],
+    },
+    changesStack:'',
+    deleteNoteModalVisible: false,
+    leaveNoteModalVisible: false,
+    currentFilter: this.activeTasksFilter,
+
+  }
+},
+computed: {
+        ...mapState({
+            notes: state => state.notes,
+        }),    
+        activeTasksFilter: function() {
+          return this.tasks.filter(function(task) {
+            return task.date.getTime() <= new Date().setHours(0,0,0,0).getTime()
+          })},
+        plannedTaskFilter: function() {
+           return this.tasks.filter(function(task) {
+            return task.date.getTime() > new Date().setHours(0,0,0,0).getTime()
+          })
+        },
+        completedTaskFilter: function() {
+           return this.tasks.filter(function(task) {
+            return task.completed
+          })
+        }
+         
+},
+mounted() {
+    const note = this.notes.find(note => note.id === this.$route.params.id);
+    if(note) {
+    this.note = note;
+    }
+    this.changesStack = [cloneDeep(this.note)]
 },
 methods: {
   toogleSidebar() {
+      const sidebar = this.$refs.sidebar;
+      const content = this.$refs.content;
+      sidebar.classList.toggle('noteSidebarToggle')
+      content.classList.toggle('noteContentToggle')
+  },
+  editTitle() {
+    this.editTitleInput = true
+    this.$nextTick(() => {
+      this.$refs.editTitleInput.focus()
+    })
+    
+  },
+  leaveNoteEdit() {
+    this.$router.push('/')
+  },
+  deleteTask(id) {
+    this.note.tasks.forEach((task, i) => {
+      if(task.id === id) {
+        this.note.tasks.splice(i, 1)
+        this.pushChange()
+      }
+    })
+  },
+  saveChanges() {
+    console.log('saved')
+  },
+  changeTask(event) {
+    const task = this.note.tasks.find(task => task.id === event.id);
+    if(event.type === 'subTask') {
+      const subTask = task.subTasks.find(subTask => subTask.id === event.changes.id);
+      Object.assign(subTask, event.changes)
+      this.pushChange()
+      return true
+    }
+    Object.assign(task, event.changes)
+    this.pushChange()
+  },
+  addTask() {
+    this.note.tasks.push({
+      id: uniqid(),
+      text: 'Новое задание',
+      priority: 4,
+      subTasks: []
+    })
+    this.pushChange()
+  },
+   deleteNote() {
+    this.deleteNoteModalVisible = false;
+    console.log(' deleted')
+  },
+  pushChange() {
+    const note = cloneDeep(this.note)
+    this.changesStack.push(note)
+    this.undoStack = []
+    if(this.changesStack.length > 99) {
+        this.changesStack.shift()
+      }
+  },
+  undoChange() {
+    if(this.changesStack.length > 1) {
+      this.undoStack.push(cloneDeep(this.changesStack.pop()))
 
+      this.note = cloneDeep(this.changesStack[this.changesStack.length-1])
+    }
+  },
+  redoChange() {
+    if(this.undoStack.length > 0) {
+      this.note = cloneDeep(this.undoStack[this.undoStack.length-1])
+      const redoNote = cloneDeep(this.undoStack.pop())
+      this.changesStack.push(redoNote)
+    }
   }
 }
 }
 </script>
 
 <style lang="scss" scoped>
+.calendar {
+  width: 200px;
+  position: fixed;
+  left: 50%;
+  top: 50%
+}
   .noteHeader {
     position: fixed;
     top: 0;
@@ -229,9 +356,10 @@ methods: {
     background: #F6F5F5;
     position: fixed;
     top: 45px;
-    left: -100%;
     height: 100%;
+    left:0;
     transition: all 0.5s linear;
+    z-index: 50;
     .noteSidebarNavButton  {
       @include button;
       background: #EFEDE4;
@@ -257,20 +385,50 @@ methods: {
     }
   
   }
-@media (min-width:1280px) {
-    .noteContent {
-      margin-left: 280px;
-    }
-    .noteSidebar {
-      left:0;
+  .noteSidebarToggle {
+    left: -100%;
+  }
+@media(min-width: 768px) {
+  
+  .noteContent {
+    margin-left:280px;
+  }
+  .noteContentToggle {
+    margin-left: 0;
+  }
+  .noteSidebar {
       width: 280px;
+      left:0;
+    }
+   .noteSidebarToggle {
+      left:-100%;
+      
       .noteSidebarNav {
         margin-top: 75px;
       }
       }
-      }
+}
+@media (min-width:1280px) {
+  .noteContent {
+    margin-left:0;
+  }
+  .noteContentToggle {
+    margin-left: 280px;
+  }
+  .noteSidebar {
+    width: 280px;
+    left:-100%;
+  }
+  .noteSidebarToggle {
+    left:0;
+  }
+  .noteSidebarNav {
+    margin-top: 75px;
+  }
+}
   .noteContent {
     margin-top: 70px;
+    transition: margin 0.5s linear;
   }
   .titleContainer {
     width: 90%;
@@ -280,10 +438,17 @@ methods: {
     word-wrap: break-word;
   }
   .titleUnderline {
-    width: 100%;
+    width: 80%;
   }
   .title {
     font-size: 1.5rem;
+    p {
+      font-size: inherit;
+    }
+  }
+  .editTitleInput {
+    outline: none;
+    padding: 0;
   }
   .currentFilter {
     font-size: 24px;
@@ -296,9 +461,19 @@ methods: {
     }
   }
   .tasksContainer {
+
     margin-top:40px;
      @media(min-width: 768px) {
       margin-left: 40px;
     }
+    @media(min-width: 1024px) {
+        width: 80%;
+        margin: 0 auto;
+    }
+    @media(min-width: 1280px) {
+      width: 70%;
+
+    }
   }
+
 </style>

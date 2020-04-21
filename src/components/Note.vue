@@ -1,26 +1,28 @@
 <template lang="pug">
   div.noteContainer
     div.noteTitle 
-      h2 Какая-то заметка
+      h2 {{ name }}
     div.noteContent
-      div.noteTask
+      div.noteTask(v-for="(task, index) of tasks" :key="index")
         i.noteTaskCircle
-        p Какое-то задание
-      div.noteTask
-        i.noteTaskCircle
-        p Какое-то задание
-      div.noteTask
-        i.noteTaskCircle
-        p Какое-то задание
-    div.noteDeleteButton
-      i(@click="$emit('deleteNote')")
+        p {{ task.text }}
+    div.noteDeleteButton(@click="$emit('deleteNote')")
     router-link.noteEditButton(to="/")
       img(src="../assets/EditNoteButton.svg")
 </template>
 
 <script>
 export default {
-
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    tasks: {
+      type: Array,
+      required: true
+    }
+  }
 }
 </script>
 
@@ -79,4 +81,16 @@ export default {
       }
     }
   }
+    .priorityOne {
+      background: rgba(245, 0, 29, 0.08);
+      border-color: $red_main;
+    }
+    .priorityTwo {
+      background: rgba(255, 169, 64, 0.25);
+      border-color: #FFA940;
+    }
+    .priorityThree {
+      background: rgba(3, 67, 106, 0.15);
+      border-color: $blue_dark;
+    }
 </style>

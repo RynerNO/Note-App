@@ -10,7 +10,8 @@
             "alias": {
                 "@components": "./src/components",
                 "@pages": "./src/pages",
-                "@styles": "./src/styles"
+                "@styles": "./src/styles",
+                "@store": "./src/store"
             }}
         ],
         ["@babel/plugin-transform-runtime",

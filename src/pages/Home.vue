@@ -2,43 +2,46 @@
   div.container
     div.titleContainer
       h1.title Заметки
-        router-link.createNote(to="/")
+        div.createNote(@click="createNote")
           div.createNoteButton
             i
             span Добавить заметку
       hr.titleUnderline
     div.notesContainer
-      note(@deleteNote="deleteNote")
-      note 
-      note
-      note
-      note
-      note
-      note
-      note
-    modal-confirm(:message="'Удалить заметку?'" :confirmButtonText="'Удалить'" v-if="modalVisible" @modalClose="modalVisible = false" @modalConfirm)
+      note(@deleteNote="selectedNote = note.id; modalVisible = true" v-for="note of notes" :key="note.id" :name="note.name" :tasks="note.tasks")
+    modal-delete-note(v-if="modalVisible" @modalClose="modalVisible = false; selectedNote = ''" @modalConfirm="deleteNote" :message="'Удалить заметку?'" :confirmButtonText="'Удалить'")
 </template>
 
 <script>
 import Note from '@components/Note.vue'
-import ModalConfirm from '@components/ModalConfirm.vue'
+import ModalDeleteNote from '@components/ModalConfirm.vue'
+import { mapState } from 'vuex';  
+import uniqid from 'uniqid';
 export default {
 components: {
   Note,
-  ModalConfirm
+  ModalDeleteNote
 },
 data() {
   return {
     modalVisible: false,
+    selectedNote: ''
   }
 },
+computed: {
+        ...mapState({
+            notes: state => state.notes,
+        }),
+},
 methods: {
-  showModal() {
-    this.modalVisible = true
-  },
   deleteNote() {
-    console.log('sdsd')
-    this.showModal()
+    this.modalVisible = false;
+    console.log(this.selectedNote + ' deleted')
+    this.selectedNote = ''
+  },
+  createNote() {
+    const id = uniqid();
+    this.$router.push(`/note/${id}`)
   }
 }
 }
@@ -88,25 +91,7 @@ methods: {
     }
    
   }
-  @keyframes spin1 {
-    from {
-      transform: rotate(90deg)
-    }
-   
-    to {
-      transform: rotate(calc( 90deg + 360deg))
-    }
-  }
-@keyframes spin2 {
-    from {
-      transform: rotate(0deg)
-    }
-   
-    to {
-      transform: rotate(360deg)
-    }
-  }
-
+ 
   .notesContainer {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

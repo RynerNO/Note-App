@@ -6,20 +6,21 @@
         button(@click="$emit('modalConfirm')").modalConfirmButton 
           span {{ confirmButtonText }}
         button(@click="$emit('modalClose')").modalCancelButton Отмена
-    div.modalBackground
+    div.modalBackground(@click="$emit('modalClose')")
 </template>
 <script>
 export default {
-  props: {
-    message: {
-      type: String,
-      required: true
-    },
-    confirmButtonText: {
-      type: String,
-      required: true
-    }
-}
+props: {
+  message: {
+    type: String,
+    required: true
+  },
+  confirmButtonText: {
+    type: String,
+    required: true
+  }
+},
+
 }
 </script>
 <style lang="scss" scoped>
@@ -30,7 +31,7 @@ export default {
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: 15;
+    z-index: 95;
   }
   .modalBackground {
     

@@ -1,52 +1,140 @@
 <template lang="pug">
-  div
-    div.taskContainer
-      div.taskExpandSubtask
-      div.taskCircle
+  div.taskContainer
+      div.taskExpandSubtask(v-if="(!editTaskInput && canHaveSubtasks && hasSubtasks)" :class="{'taskExpandSubtaskActive': expandSubTask}" @click="$emit('expandSubTask')")
+      div.taskCircle(v-if="!editTaskInput" :class="{'priorityOneBackground': priority === 1, 'priorityTwoBackground': priority === 2, 'priorityThreeBackground': priority === 3}")
         img(src="../assets/CheckIcon.svg")
-      h2.taskText Какая-то задача
-      input.taskEditInput
-      div.taskActionsContainer
-        div.taskEditButton
+      div.taskContent(:class="{'taskContentEditing': editTaskInput}")
+        p.taskText(v-show="!editTaskInput") {{ text }}
+        textarea-autosize.taskEditInput(v-show="editTaskInput" ref="editTaskInput" v-model="task.text"
+        :min-height="50" 
+        :autosize="true"
+        )
+        div.editButtonsContainer(v-show="editTaskInput")
+          button.editButtonSave(@click="applyEdit") Сохранить
+          button.editButtonCancel(@click="cancelEdit") Отмена
+      div.taskActionsContainer(v-if="!editTaskInput")
+        div.taskEditButton(@click="editText")
           img(src="../assets/TaskEditButton.svg")
-        div.taskSetPriority
+        div.taskSetTimeButton()
+          img(src="../assets/SetTimeButton.svg")
+          calendar.calendar(@setDate="setDate($event)" :class="{'showCalendar': showCalendar}")
+        div.taskSetPriority(:class="{'priorityOneBackground': priority === 1, 'priorityTwoBackground': priority === 2, 'priorityThreeBackground': priority === 3}")
           div.taskPriorityList
-            div.priorityOne
-            div.priorityTwo
-            div.priorityThree
-            div.priorityFour
-        div.taskAddSubtask
-        div.taskDeleteButton
+            div.priorityOne(v-if="!(priority === 1)" @click="setPriority(1)")
+            div.priorityTwo(v-if="!(priority === 2)" @click="setPriority(2)")
+            div.priorityThree(v-if="!(priority === 3)" @click="setPriority(3)")
+            div.priorityFour(v-if="!(priority === 4)" @click="setPriority(4)")
+        div.taskAddSubtask(@click="$emit('addSubTask')" v-if="canHaveSubtasks")
+        div.taskDeleteButton(@click="$emit('taskDelete')")
           i
-    div.taskContainer.subTask
-      div.subTaskCircle 
-        img(src="../assets/CheckIcon.svg")
-      h2.taskText Какая-то задача
-      input.taskEditInput
-      div.taskActionsContainer
-        div.taskEditButton
-          img(src="../assets/TaskEditButton.svg")
-        div.taskSetPriority
-          div.taskPriorityList
-            div.priorityOne
-            div.priorityTwo
-            div.priorityThree
-            div.priorityFour
-        div.taskAddSubtask
-        div.taskDeleteButton
-          i
-
 </template>
 
 <script>
+import Calendar from '@components/Calendar.vue'
 export default {
+  components: {
+    Calendar
+  },
+  props: {
+    id: {
+      type: String,
+      required: true
+    },
+    text: {
+      type: String,
+      required: true
+    },
+    priority: {
+      type: Number,
+      required: true
+    },
+    canHaveSubtasks: {
+      type: Boolean,
+      required: false,
+      default: true
+    },
+    expandSubTask: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    hasSubtasks: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    date: {
+      type: Date,
+      required: false,
+      default: () => new Date()
+    }
+  },
+  data() {
+    return {
+      editTaskInput: false,
+      task: {
+        text: this.text,
+        priority: this.priority,
+        date: this.date
+      },
+      showCalendar: false
+    }
+  },
+  methods: {
+    editText() {
+      this.editTaskInput = true
+      this.$nextTick(() => {
+        this.$refs.editTaskInput.$el.focus()
+      })
+    
+  },
+  setPriority(level) {
+    if(level !== this.task.priority) {
+      this.task.priority = level
+      this.$emit('taskChanged', {
+      id: this.id, 
+      changes: {
+      priority: Number(this.task.priority)
+    }})
+    }
+  },
+  setDate(date) {
+    
+    if(!this.task.hasOwnProperty('time') || date.getTime() !== this.task.date.getTime()) {
 
+      this.task.date = date
+      this.$emit('taskChanged', {
+      id: this.id, 
+      changes: {
+      date: this.task.date
+    }})
+    }
+  },
+  hideCalendar() {
+    if(this.showCalendar) this.showCalendar = false;
+  
+  },
+  applyEdit() {
+    this.editTaskInput = false
+    this.$emit('taskChanged', 
+      {
+      id: this.id,
+      type: 'task',
+      changes: {
+      text: String(this.task.text)
+    }})
+  },
+  cancelEdit() {
+    this.editTaskInput = false
+    this.task.text = this.text
+  }
+  }
 }
 </script>
 
 <style lang="scss">
 @mixin circle {
-    width: 20px;
+    min-width: 20px;
     height: 20px;
     border-radius: 9999px;
     background: #FAFAFA;
@@ -70,20 +158,41 @@ export default {
       
     }
   }
+  .taskContent {
+    width: 100%;
+    
+  }
+  .taskContentEditing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .editButtonsContainer {
+    margin: 5px 0;
+  }
+  .editButtonSave {
+    @include button;
+    background-color: $blue_light;
+    color: #fff;
 
+  }
+  .editButtonCancel {
+    @include button;
+  }
   .taskText {
     font-weight: 400;
-    
     font-size: 14px;
     margin-bottom: 5px;
+    word-wrap: break-word;
   }
   .taskEditInput {
-    display: none;
     outline: none;
     font-size: 14px;
     font-weight: 400;
     margin-bottom: 5px;
-
+    border: 1px solid rgb(156, 156, 156);
+    resize: none;
+    width: 100%;
     &:focus {
       outline: none;
     }
@@ -96,6 +205,7 @@ export default {
     margin-right: 10px;
     margin-bottom: 5px;
     position: relative;
+    align-self:flex-start;
     img {
       display: none;
     }
@@ -116,16 +226,53 @@ export default {
         transform: rotate(-90deg);
         left: -10px;
         top: 7px;
+        transition: all 0.2s linear;
         cursor: pointer;
   }
+  .taskExpandSubtaskActive {
+    transform: rotate(0deg);
+  }
   .taskEditButton {
-    width: 16px;
-    height: 16px;
+    width: 31px;
+    height: 31px;
     margin-right: 5px;
+    padding: 5px;
     cursor: pointer;
     img {
       width: 100%;
     }
+    &:hover {
+      background: #dfdfdf;
+    }
+  }
+  .taskSetTimeButton {
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+    img {
+      width: 100%;
+    }
+    &:hover {
+      background: #dfdfdf;
+      .calendar {
+        visibility: visible;
+      }
+    }
+  }
+  .calendar {
+    position: absolute;
+    z-index: 150;
+    width: 250px;
+    left: -56px;
+    top: 34px;
+    visibility: hidden;
+    transition: all 0.2s linear;
+  }
+  .showCalendar {
+    display: block;
   }
   .taskActionsContainer {
     position: absolute;
@@ -169,88 +316,90 @@ export default {
       height: 0;
       overflow: hidden;
       transition: height 0.1s linear;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
      
     .priorityOne {
       @include circle;
-      position: absolute;
       background: rgba(245, 0, 29, 0.08);
       border-color: $red_main;
-      top: 11px;
-      left:0;
+      margin-top: 5px;
     }
     .priorityTwo {
       @include circle;
       background: rgba(255, 169, 64, 0.25);
-      position: absolute;
       border-color: #FFA940;
-      top: 35px;
-      left:0;
+      margin-top: 5px;
     }
     .priorityThree {
       @include circle;
       background: rgba(3, 67, 106, 0.15);
-      position: absolute;
       border-color: $blue_dark;
-      top: 59px;
-      left:0;
+      margin-top: 5px;
     }
     .priorityFour {
       @include circle;
-      position: absolute;
-      top: 83px;
-      left:0;
+      margin-top: 5px;
     }
      
   }
   .taskAddSubtask { 
-   @include plusButton;
-   background: transparent;
-   cursor: pointer;
-   &::before, &::after {
-     background: $green_main;
+    @include plusButton;
+    background: transparent;
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+    img {
+      width: 100%;
+    }
+    &:hover {
+      background: #dfdfdf;
+    }
+    cursor: pointer;
+    &::before, &::after {
+    background: $green_main;
+    top: 14px;
+    left: 5px;
    } 
   }
   .taskDeleteButton {
     @include deleteButton;
-    width: 25px;
-    height: 25px;
-    position: relative;
-    &:hover {
-      background: transparent; 
-      &::before, &::after {
-        background: $red_main; 
-      }
-    }
-    
-    &::before, &::after {
-     width: 20px;
-     top: 12px;
-     left: 3px;
-   } 
+    width: 31px;
+    height: 31px;
     margin-right: 5px;
-  }
-  .subTask {
-    
-    margin-left: 35px;
-    margin-top: 25px;
-    padding-bottom: 0;
-    display: none;
-  }
-  .subTaskCircle {
-    @include circle;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 10px;
-    margin-bottom: 5px;
+    padding: 5px;
     position: relative;
+    cursor: pointer;
     img {
-      display: none;
+      width: 100%;
     }
     &:hover {
-      img {
-        display: block;
+      background: #dfdfdf;
+      &::before, &::after {
+      background: $red_main;
       }
     }
+    cursor: pointer;
+    &::before, &::after {
+    background: $red_main;
+    top: 14px;
+    left: 3px;
+   } 
   }
+
+  .priorityOneBackground {
+      background: rgba(245, 0, 29, 0.08);
+      border-color: $red_main;
+    }
+    .priorityTwoBackground {
+      background: rgba(255, 169, 64, 0.25);
+      border-color: #FFA940;
+    }
+    .priorityThreeBackground {
+      background: rgba(3, 67, 106, 0.15);
+      border-color: $blue_dark;
+    }
 </style>
