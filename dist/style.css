@@ -1,6 +1,1182 @@
-div .pidor[data-v-5a90ec03] {
-  background-color: red;
+@import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates:400,500|Roboto&display=swap);
+.noteContainer[data-v-34551322] {
+    margin: 10px;
+    grid-column: span 1/span 1;
+    position: relative;
+    border: 1px solid rgba(36, 31, 31, 0.67);
+    border-radius: 14px;
+    box-shadow: 9px 6px 2px rgba(0, 0, 0, 0.25);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
 }
+.noteContainer .noteTitle[data-v-34551322] {
+      align-self: flex-start;
+      max-width: 90%;
+}
+.noteContainer .noteTitle h2[data-v-34551322] {
+        margin: 0;
+        font-family: 'Roboto';
+        font-size: 1rem;
+}
+.noteContainer .noteContent[data-v-34551322] {
+      padding: 1rem;
+}
+.noteContainer .noteContent .noteTask[data-v-34551322] {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding-bottom: 0.5rem;
+}
+.noteContainer .noteContent .noteTask .noteTaskCircle[data-v-34551322] {
+          width: 16px;
+          height: 16px;
+          border-radius: 9999px;
+          background: rgba(0, 0, 0, 0.03);
+          border: 1px solid rgba(0, 0, 0, 0.24);
+          display: block;
+          margin-right: 10px;
+}
+.noteContainer .noteDeleteButton[data-v-34551322] {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border-radius: 9999px;
+  transition: background 0.3s linear;
+  cursor: pointer;
+}
+.noteContainer .noteDeleteButton[data-v-34551322]:hover {
+    
+      background:#FF0505
+}
+.noteContainer .noteDeleteButton[data-v-34551322]:hover::after,.noteContainer .noteDeleteButton[data-v-34551322]:hover::before {
+      background: #fff;
+}
+.noteContainer .noteDeleteButton[data-v-34551322]::after {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(-45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+}
+.noteContainer .noteDeleteButton[data-v-34551322]::before {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+}
+.noteContainer .noteDeleteButton[data-v-34551322] {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+}
+.noteContainer .noteEditButton[data-v-34551322] {
+      position: absolute;
+      right: 15px;
+      bottom: 10px;
+      width: 30px;
+      height: 30px;
+}
+.noteContainer .noteEditButton img[data-v-34551322] {
+        width: 100%;
+}
+.priorityOne[data-v-34551322] {
+      background: rgba(245, 0, 29, 0.08);
+      border-color: #F5001D;
+}
+.priorityTwo[data-v-34551322] {
+      background: rgba(255, 169, 64, 0.25);
+      border-color: #FFA940;
+}
+.priorityThree[data-v-34551322] {
+      background: rgba(3, 67, 106, 0.15);
+      border-color: #03436A;
+}
+
+.modalContainer[data-v-abcd6bfa] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 95;
+}
+.modalBackground[data-v-abcd6bfa] {
+    background: rgba(24, 24, 24, 0.3);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.modal[data-v-abcd6bfa] {
+    width: 239px;
+    background: #FEFDF8;
+    position: absolute;
+    margin-left: -119.5px;
+    margin-top: -48px;
+    left: 50%;
+    top: 50%;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-family: 'Montserrat Alternates', 'sans-serif';
+    z-index: 10;
+}
+.modalMessage[data-v-abcd6bfa] {
+    color: #03436A;
+    width: 80%;
+    margin: 10px auto;
+    text-align: center;
+}
+.modalButtonContainer[data-v-abcd6bfa] {
+    margin-top: 25px;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: 100%;
+    background: #245A7A;
+    border-radius: 0 0 14px 14px;
+    padding: 8px;
+}
+.modalConfirmButton[data-v-abcd6bfa] {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: #64A8D1;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+    background: #F5001D;
+    color: #fff
+}
+.modalConfirmButton[data-v-abcd6bfa]:hover {
+        background: #9F0013;
+}
+.modalCancelButton[data-v-abcd6bfa] {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: #64A8D1;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+    margin: 0
+}
+.modalCancelButton[data-v-abcd6bfa]:hover {
+        text-decoration: underline;
+}
+
+.createNote[data-v-5a90ec03] {
+    text-decoration: none;
+    padding-top: 7px;
+    padding-left: 10px;
+}
+.createNote .createNoteButton[data-v-5a90ec03] {
+  width: 25px;
+  height: 25px;
+  background-color: #2DD700;
+  border-radius:9999px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden
+}
+.createNote .createNoteButton[data-v-5a90ec03]::before {
+    transform: rotate(90deg);
+}
+.createNote .createNoteButton[data-v-5a90ec03]::before,.createNote .createNoteButton[data-v-5a90ec03]::after {
+    content: '';
+    background: #fff;
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    top: 11px;
+    left: 4px;
+}
+@media(min-width: 768px) {
+.createNote .createNoteButton[data-v-5a90ec03] {
+  width: 35px;
+  height: 35px
+}
+.createNote .createNoteButton[data-v-5a90ec03]::before,.createNote .createNoteButton[data-v-5a90ec03]::after {
+    width: 20px;
+    height: 2px;
+    top: 17px;
+    left: 8px;
+}
+}
+.createNote .createNoteButton[data-v-5a90ec03] {
+        cursor: pointer;
+}
+.createNote .createNoteButton span[data-v-5a90ec03] {
+            color: #2DD700;
+            font-family: 'Montserrat Alternates';
+            position: absolute;
+            display: block;
+            white-space: nowrap;
+            top: 10px;
+            left: 35px;
+            font-size: 12px;
+            font-weight: 500;
+}
+@media(min-width: 768px) {
+.createNote .createNoteButton[data-v-5a90ec03]:hover {
+                width: 190px;
+                overflow: hidden;
+                background: transparent;
+                border: 1px solid #2DD700;
+                transition: all 0.3s ease-in-out
+}
+.createNote .createNoteButton[data-v-5a90ec03]:hover::before,
+                .createNote .createNoteButton[data-v-5a90ec03]:hover::after {
+                    background: #2DD700;
+                    -webkit-animation: spin1 1s ease-in-out;
+                            animation: spin1 1s ease-in-out;
+}
+.createNote .createNoteButton[data-v-5a90ec03]:hover::after {
+                    -webkit-animation: spin2 1s ease-in-out;
+                            animation: spin2 1s ease-in-out;
+}
+.createNote .createNoteButton:hover span[data-v-5a90ec03] {
+                    display: block;
+}
+}
+.notesContainer[data-v-5a90ec03] {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%
+}
+@media(min-width: 768px) {
+.notesContainer[data-v-5a90ec03] {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+}
+}
+@media(min-width: 1024px) {
+.notesContainer[data-v-5a90ec03] {
+        grid-template-columns: repeat(3, minmax(0, 1fr))
+}
+}
+@media(min-width: 1280px) {
+.notesContainer[data-v-5a90ec03] {
+        grid-template-columns: repeat(4, minmax(0, 1fr))
+}
+}
+
+.calendarContainer[data-v-12cb4c6e] {
+    display: grid;
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
+    background: #fff;
+    padding: 5px;
+    border: 1px solid #8b8b8b;
+    border-radius: 11px;
+}
+.daysNames[data-v-12cb4c6e] {
+    grid-column: span 1/ span 1;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    margin-bottom: 5px;
+}
+.daysNames span[data-v-12cb4c6e] {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+.days[data-v-12cb4c6e] {
+    display: grid;
+    grid-column: span 1/ span 1;
+    grid-template-columns: repeat(7, minmax(0, 1fr))
+}
+.day[data-v-12cb4c6e] {
+    grid-column: span 1/ span 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    font-family: 'Montserrat Alternates', 'sans-serif';
+    justify-content: center;
+    padding: 5px
+}
+.day[data-v-12cb4c6e]:hover {
+        cursor: pointer;
+        background: #f8f8f8;
+}
+.today[data-v-12cb4c6e] {
+    color: #F5001D;
+    font-weight: 500;
+}
+.selected[data-v-12cb4c6e] {
+    background: #64A8D1;
+    color: #000000
+}
+.selected[data-v-12cb4c6e]:hover {
+        cursor: default;
+        background: #64A8D1;
+}
+.past[data-v-12cb4c6e] {
+    cursor: default;
+    background: transparent;
+    color: #b8b8b8
+}
+.past[data-v-12cb4c6e]:hover {
+        cursor: default;
+        background: transparent;
+}
+.empty[data-v-12cb4c6e]:hover {
+        cursor: default;
+        background: transparent;
+}
+.calendarControls[data-v-12cb4c6e] {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #888888;
+}
+.prevMonthButton[data-v-12cb4c6e] {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    position: relative;
+    cursor: pointer
+}
+.prevMonthButton[data-v-12cb4c6e]::before,
+    .prevMonthButton[data-v-12cb4c6e]::after {
+        position: absolute;
+        content: '';
+        width: 16px;
+        height: 2px;
+        background: #4e4e4e;
+        top: 15px;
+        left: 5px;
+        transform: rotate(45deg);
+}
+.prevMonthButton[data-v-12cb4c6e]::before {
+        transform: rotate(-45deg);
+        top: 5px;
+}
+.prevMonthButton[data-v-12cb4c6e]:hover {
+        background-color: #f8f8f8;
+}
+.nextMonthButton[data-v-12cb4c6e] {
+    width: 25px;
+    height: 25px;
+    padding: 5px;
+    position: relative;
+    cursor: pointer
+}
+.nextMonthButton[data-v-12cb4c6e]::before,
+    .nextMonthButton[data-v-12cb4c6e]::after {
+        position: absolute;
+        content: '';
+        width: 16px;
+        height: 2px;
+        background: #4e4e4e;
+        top: 15px;
+        left: 5px;
+        transform: rotate(45deg);
+}
+.nextMonthButton[data-v-12cb4c6e]::before {
+        transform: rotate(-45deg);
+        top: 5px;
+}
+.nextMonthButton[data-v-12cb4c6e]:hover {
+        background-color: #f8f8f8;
+}
+.nextMonthButton[data-v-12cb4c6e]::before {
+        transform: rotate(45deg);
+}
+.nextMonthButton[data-v-12cb4c6e]::after {
+        transform: rotate(-45deg);
+}
+.currentMonthButton[data-v-12cb4c6e] {
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer
+}
+.currentMonthButton[data-v-12cb4c6e]:hover {
+        background-color: #f8f8f8;
+}
+.currentMonthButton i[data-v-12cb4c6e] {
+        width: 15px;
+        height: 15px;
+        border: 1px solid #d8d8d8;
+        border-radius: 9999px;
+        background-color: #f8f8f8;
+}
+.monthName[data-v-12cb4c6e],
+.year[data-v-12cb4c6e] {
+    font-size: 14px;
+    font-family: 'Montserrat Alternates', 'sans-serif';
+    margin-right: 5px;
+}
+.monthName[data-v-12cb4c6e] {
+    margin-left: 5px;
+}
+
+.taskContainer {
+    display: flex;
+    align-items: center;
+    font-family: 'Montserrat Alternates', 'sans-serif';
+    font-size: 14px;
+    font-weight: 400;
+    border-bottom: 1px solid #ccc;
+    margin: 0 20px;
+    position: relative;
+    margin-top: 20px
+}
+.taskContainer:hover .taskActionsContainer {
+            opacity: 1;
+}
+.taskContent {
+    width: 100%;
+}
+.taskContentEditing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.editButtonsContainer {
+    margin: 5px 0;
+}
+.editButtonSave {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: #64A8D1;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+    background-color: #64A8D1;
+    color: #fff;
+}
+.editButtonCancel {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: #64A8D1;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+}
+.taskText {
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+.taskEditInput {
+    outline: none;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    border: 1px solid rgb(156, 156, 156);
+    resize: none;
+    width: 100%
+}
+.taskEditInput:focus {
+        outline: none;
+}
+.taskCircle {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    align-self: flex-start;
+}
+.taskCircle img {
+        display: none;
+}
+.taskCircle:hover img {
+            display: block;
+}
+.taskExpandSubtask {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid #555;
+    position: absolute;
+    transform: rotate(-90deg);
+    left: -10px;
+    top: 7px;
+    transition: all 0.2s linear;
+    cursor: pointer;
+}
+.taskExpandSubtaskActive {
+    transform: rotate(0deg);
+}
+.taskEditButton {
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.taskEditButton img {
+        width: 100%;
+}
+.taskEditButton:hover {
+        background: #dfdfdf;
+}
+.taskSetTimeButton {
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+}
+.taskSetTimeButton img {
+        width: 100%;
+}
+.taskSetTimeButton:hover {
+        background: #dfdfdf;
+}
+.taskSetTimeButton:hover .calendar {
+            visibility: visible;
+}
+.calendar {
+    position: absolute;
+    z-index: 150;
+    width: 250px;
+    left: -56px;
+    top: 34px;
+    visibility: hidden;
+    transition: all 0.2s linear;
+}
+.showCalendar {
+    display: block;
+}
+.taskActionsContainer {
+    position: absolute;
+    right: 0;
+    background: #FEFDF8;
+    top: -5px;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s linear;
+}
+.taskSetPriority {
+    margin-left: 15px;
+    margin-right: 5px;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+    position: relative
+}
+.taskSetPriority::after {
+        content: '';
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #555;
+        position: absolute;
+        right: 20px;
+        top: 6px;
+}
+.taskSetPriority:hover .taskPriorityList {
+            height: 110px;
+}
+.taskPriorityList {
+    position: absolute;
+    top: 19px;
+    left: -1px;
+    width: 25px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.1s linear;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.taskPriorityList .priorityOne {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+        background: rgba(245, 0, 29, 0.08);
+        border-color: #F5001D;
+        margin-top: 5px;
+}
+.taskPriorityList .priorityTwo {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+        background: rgba(255, 169, 64, 0.25);
+        border-color: #FFA940;
+        margin-top: 5px;
+}
+.taskPriorityList .priorityThree {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+        background: rgba(3, 67, 106, 0.15);
+        border-color: #03436A;
+        margin-top: 5px;
+}
+.taskPriorityList .priorityFour {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+        margin-top: 5px;
+}
+.taskAddSubtask {
+  width: 25px;
+  height: 25px;
+  background-color: #2DD700;
+  border-radius:9999px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden
+}
+.taskAddSubtask::before {
+    transform: rotate(90deg);
+}
+.taskAddSubtask::before,.taskAddSubtask::after {
+    content: '';
+    background: #fff;
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    top: 11px;
+    left: 4px;
+}
+@media(min-width: 768px) {
+.taskAddSubtask {
+  width: 35px;
+  height: 35px
+}
+.taskAddSubtask::before,.taskAddSubtask::after {
+    width: 20px;
+    height: 2px;
+    top: 17px;
+    left: 8px;
+}
+}
+.taskAddSubtask {
+    background: transparent;
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    cursor: pointer;
+}
+.taskAddSubtask img {
+        width: 100%;
+}
+.taskAddSubtask:hover {
+        background: #dfdfdf;
+}
+.taskAddSubtask {
+    cursor: pointer
+}
+.taskAddSubtask::before,
+    .taskAddSubtask::after {
+        background: #2DD700;
+        top: 14px;
+        left: 5px;
+}
+.taskDeleteButton {
+  width: 35px;
+  height: 35px;
+  background: transparent;
+  border-radius: 9999px;
+  transition: background 0.3s linear;
+  cursor: pointer
+}
+.taskDeleteButton:hover {
+    
+      background:#FF0505
+}
+.taskDeleteButton:hover::after,.taskDeleteButton:hover::before {
+      background: #fff;
+}
+.taskDeleteButton::after {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(-45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+}
+.taskDeleteButton::before {
+    content: '';
+    width: 25px;
+    height: 2px;
+    background: #FF0505;
+    position: absolute;
+    transform: rotate(45deg);
+    z-index: 5;
+    transition: background 0.3s linear;
+    top: 16px;
+    left: 5px;
+}
+.taskDeleteButton {
+    width: 31px;
+    height: 31px;
+    margin-right: 5px;
+    padding: 5px;
+    position: relative;
+    cursor: pointer;
+}
+.taskDeleteButton img {
+        width: 100%;
+}
+.taskDeleteButton:hover {
+        background: #dfdfdf
+}
+.taskDeleteButton:hover::before,
+        .taskDeleteButton:hover::after {
+            background: #F5001D;
+}
+.taskDeleteButton {
+    cursor: pointer
+}
+.taskDeleteButton::before,
+    .taskDeleteButton::after {
+        background: #F5001D;
+        top: 14px;
+        left: 3px;
+}
+.priorityOneBackground {
+    background: rgba(245, 0, 29, 0.08);
+    border-color: #F5001D;
+}
+.priorityTwoBackground {
+    background: rgba(255, 169, 64, 0.25);
+    border-color: #FFA940;
+}
+.priorityThreeBackground {
+    background: rgba(3, 67, 106, 0.15);
+    border-color: #03436A;
+}
+.date {
+    width: 100%;
+    position: absolute;
+    top: 34px;
+    left: 32px;
+    color: #F5001D;
+    cursor: default;
+}
+
+
+.subTask>div[data-v-0fb0c4fa] {
+    margin-left: 45px;
+    margin-top: 25px;
+    padding-bottom: 0; 
+    display: none;
+}
+.expandSubTask>div[data-v-0fb0c4fa] {
+  display: flex;
+}
+
+.success[data-v-29ce9aa7] {
+    background: #2DD700;
+    color: #fff;
+}
+.error[data-v-29ce9aa7] {
+    background: #9F0013;
+    color: #fff;
+}
+.flashMessage[data-v-29ce9aa7] {
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.calendar[data-v-13e81880] {
+    width: 200px;
+    position: fixed;
+    left: 50%;
+    top: 50%
+}
+.noteHeader[data-v-13e81880] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 45px;
+    background: #fff;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border: 1px solid #D8D8D8;
+}
+.noteBurgerButton[data-v-13e81880] {
+    cursor: pointer;
+    padding: 10px
+}
+.noteBurgerButton[data-v-13e81880]:hover {
+        background: rgba(0, 0, 0, 0.027);
+}
+@media(min-width: 768px) {
+.noteBurgerButton[data-v-13e81880] {
+        margin-right: 15px
+}
+}
+.addTaskButton[data-v-13e81880] {
+  width: 25px;
+  height: 25px;
+  background-color: #2DD700;
+  border-radius:9999px;
+  transition: all 0.3s ease-in-out;
+  position: relative;
+  overflow: hidden
+}
+.addTaskButton[data-v-13e81880]::before {
+    transform: rotate(90deg);
+}
+.addTaskButton[data-v-13e81880]::before,.addTaskButton[data-v-13e81880]::after {
+    content: '';
+    background: #fff;
+    position: absolute;
+    width: 16px;
+    height: 2px;
+    top: 11px;
+    left: 4px;
+}
+@media(min-width: 768px) {
+.addTaskButton[data-v-13e81880] {
+  width: 35px;
+  height: 35px
+}
+.addTaskButton[data-v-13e81880]::before,.addTaskButton[data-v-13e81880]::after {
+    width: 20px;
+    height: 2px;
+    top: 17px;
+    left: 8px;
+}
+}
+.addTaskButton[data-v-13e81880] {
+    margin-left: 5px;
+    cursor: pointer;
+    min-width: 25px;
+}
+.addTaskButton span[data-v-13e81880] {
+        color: #2DD700;
+        font-family: 'Montserrat Alternates';
+        position: absolute;
+        display: block;
+        white-space: nowrap;
+        top: 10px;
+        left: 35px;
+        font-size: 12px;
+        font-weight: 500;
+}
+@media(min-width: 640px) {
+.addTaskButton[data-v-13e81880] {
+        width: 190px;
+        height: 35px;
+        overflow: hidden;
+        background: transparent;
+        border: 1px solid #2DD700;
+        transition: all 0.3s ease-in-out;
+}
+.addTaskButton span[data-v-13e81880] {
+            display: block;
+}
+.addTaskButton[data-v-13e81880]::before,
+        .addTaskButton[data-v-13e81880]::after {
+            background: #2DD700;
+            width: 20px;
+            height: 2px;
+            top: 17px;
+            left: 8px;
+}
+}
+@media(min-width: 768px) {
+.addTaskButton[data-v-13e81880]:hover {
+            width: 190px;
+            overflow: hidden;
+            background: transparent;
+            border: 1px solid #2DD700;
+            transition: all 0.3s ease-in-out
+}
+.addTaskButton[data-v-13e81880]:hover::before,
+            .addTaskButton[data-v-13e81880]:hover::after {
+                background: #2DD700;
+                -webkit-animation: spin1 1s ease-in-out;
+                        animation: spin1 1s ease-in-out;
+}
+.addTaskButton[data-v-13e81880]:hover::after {
+                -webkit-animation: spin2 1s ease-in-out;
+                        animation: spin2 1s ease-in-out;
+}
+.addTaskButton:hover span[data-v-13e81880] {
+                display: block;
+}
+}
+.undoRedoSaveContainer[data-v-13e81880] {
+    display: flex;
+}
+.undoRedoSaveContainer .undoButton span[data-v-13e81880] {
+            display: none;
+}
+@media (min-width:1280px) {
+.undoRedoSaveContainer .undoButton span[data-v-13e81880] {
+                display: block;
+}
+}
+.undoRedoSaveContainer .redoButton span[data-v-13e81880] {
+            display: none;
+}
+@media (min-width:1280px) {
+.undoRedoSaveContainer .redoButton span[data-v-13e81880] {
+                display: block;
+}
+}
+.saveButton span[data-v-13e81880] {
+        display: none;
+}
+@media (min-width:610px) {
+.saveButton span[data-v-13e81880] {
+            display: block;
+}
+}
+.menuButton[data-v-13e81880] {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-left: 5px;
+    padding: 10px;
+}
+.menuButton span[data-v-13e81880] {
+        margin-left: 12px;
+}
+.menuButton[data-v-13e81880]:hover {
+        background: rgba(0, 0, 0, 0.027);
+}
+@media(min-width: 610px) {
+.menuButton[data-v-13e81880] {
+        margin-left: 15px
+}
+}
+@media(min-width: 1280px) {
+.menuButton[data-v-13e81880] {
+        margin-left: 30px
+}
+}
+.cancelDeleteContainer[data-v-13e81880] {
+    display: flex;
+    margin-left: auto;
+}
+.cancelDeleteContainer .deleteButton span[data-v-13e81880] {
+            display: none;
+}
+@media (min-width:1024px) {
+.cancelDeleteContainer .deleteButton span[data-v-13e81880] {
+                display: block;
+}
+}
+.cancelDeleteContainer .cancelButton span[data-v-13e81880] {
+            display: none;
+}
+@media (min-width:1024px) {
+.cancelDeleteContainer .cancelButton span[data-v-13e81880] {
+                display: block;
+}
+}
+.noteSidebar[data-v-13e81880] {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #F6F5F5;
+    position: fixed;
+    top: 45px;
+    height: 100%;
+    left: 0;
+    transition: all 0.5s linear;
+    z-index: 50;
+}
+.noteSidebar .noteSidebarNavButton[data-v-13e81880] {
+  outline: none;
+  margin: 0 5px;
+  border-radius: 10.5px;
+  background: transparent;
+  border: none;
+  color: #64A8D1;
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  font-family: 'Montserrat Alternate';
+  font-size: 14px;
+  font-weight: 500;
+        background: #EFEDE4;
+        display: flex;
+        font-size: 17px;
+        font-family: 'Montserrat Alternates', 'sans-serif';
+        font-weight: 500;
+        color: #000000;
+        width: 208px;
+        margin-top: 15px;
+        align-items: center
+}
+.noteSidebar .noteSidebarNavButton[data-v-13e81880]:hover {
+            background: #DADADA;
+}
+.noteSidebar .noteSidebarNavButtonActive[data-v-13e81880] {
+        background: #FA3E54;
+        color: #fff
+}
+.noteSidebar .noteSidebarNavButtonActive[data-v-13e81880]:hover {
+            cursor: default;
+            background: #FA3E54;
+}
+.noteSidebarToggle[data-v-13e81880] {
+    left: -100%;
+}
+@media(min-width: 768px) {
+.noteContent[data-v-13e81880] {
+        margin-left: 280px;
+}
+.noteContentToggle[data-v-13e81880] {
+        margin-left: 0;
+}
+.noteSidebar[data-v-13e81880] {
+        width: 280px;
+        left: 0;
+}
+.noteSidebarToggle[data-v-13e81880] {
+        left: -100%;
+}
+.noteSidebarToggle .noteSidebarNav[data-v-13e81880] {
+            margin-top: 75px;
+}
+}
+@media (min-width:1280px) {
+.noteContent[data-v-13e81880] {
+        margin-left: 0;
+}
+.noteContentToggle[data-v-13e81880] {
+        margin-left: 280px;
+}
+.noteSidebar[data-v-13e81880] {
+        width: 280px;
+        left: -100%;
+}
+.noteSidebarToggle[data-v-13e81880] {
+        left: 0;
+}
+.noteSidebarNav[data-v-13e81880] {
+        margin-top: 75px;
+}
+}
+.noteContent[data-v-13e81880] {
+    margin-top: 70px;
+    transition: margin 0.5s linear;
+}
+.titleContainer[data-v-13e81880] {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    word-wrap: break-word;
+}
+.titleUnderline[data-v-13e81880] {
+    width: 80%;
+}
+.title[data-v-13e81880] {
+    font-size: 1.5rem;
+}
+.title p[data-v-13e81880] {
+        font-size: inherit;
+}
+.editTitleInput[data-v-13e81880] {
+    outline: none;
+    padding: 0;
+}
+.currentFilter[data-v-13e81880] {
+    font-size: 24px;
+    font-family: 'Montserrat Alternates', 'sans-serif';
+    color: #000000;
+    font-weight: 500;
+    margin-left: 10px
+}
+@media(min-width: 768px) {
+.currentFilter[data-v-13e81880] {
+        margin-left: 30px
+}
+}
+.tasksContainer[data-v-13e81880] {
+    margin-top: 40px
+}
+@media(min-width: 768px) {
+.tasksContainer[data-v-13e81880] {
+        margin-left: 40px
+}
+}
+@media(min-width: 1024px) {
+.tasksContainer[data-v-13e81880] {
+        width: 80%;
+        margin: 0 auto
+}
+}
+@media(min-width: 1280px) {
+.tasksContainer[data-v-13e81880] {
+        width: 70%
+}
+}
+
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 
 /* Document
@@ -350,5 +1526,97 @@ template {
 
 [hidden] {
   display: none;
+}
+
+body {
+  background: #FEFDF8;
+  font-family: 'Roboto', 'sans-serif';
+}
+p, h1, h2, div, button{
+  margin: 0;
+}
+*, ::before, ::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: #e2e8f0;
+}
+img {
+  display: block;
+}
+
+.titleContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 35px 0;
+}
+.title {
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  transition: font-size 0.2s linear
+}
+@media(min-width: 768px) {
+.title {
+    font-size: 3.5rem
+}
+  }
+.titleUnderline {
+  color: rgba(0, 0, 0, 0.76);
+  width: 60%;
+  margin: 0 auto;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.76)
+  
+}
+@media(min-width: 768px) {
+.titleUnderline {
+      width: 70%
+  
+}
+  }
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: grid;
+}
+
+@-webkit-keyframes spin1 {
+  from {
+    transform: rotate(90deg)
+  }
+ 
+  to {
+    transform: rotate(calc( 90deg + 360deg))
+  }
+}
+
+@keyframes spin1 {
+  from {
+    transform: rotate(90deg)
+  }
+ 
+  to {
+    transform: rotate(calc( 90deg + 360deg))
+  }
+}
+@-webkit-keyframes spin2 {
+  from {
+    transform: rotate(0deg)
+  }
+ 
+  to {
+    transform: rotate(360deg)
+  }
+}
+@keyframes spin2 {
+  from {
+    transform: rotate(0deg)
+  }
+ 
+  to {
+    transform: rotate(360deg)
+  }
 }
 

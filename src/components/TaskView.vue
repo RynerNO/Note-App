@@ -1,8 +1,8 @@
 <template lang="pug">
   div
-    task(:text="text" :id="id" :date="date" :hasSubtasks="subTasks.length > 0" :priority="priority" @taskChanged="$emit('taskChanged', $event)" @addSubTask="addSubTask" @taskDelete="$emit('taskDelete')" :expandSubTask="expandSubTask" @expandSubTask="subTaskShowToggle")
+    task(:text="text" :id="id" :dateCompleted="dateCompleted" :date="date" :completed="completed" :hasSubtasks="subTasks.length > 0" :priority="priority" @taskChanged="$emit('taskChanged', $event)" @addSubTask="addSubTask" @taskDelete="$emit('taskDelete')" :expandSubTask="expandSubTask" @expandSubTask="subTaskShowToggle")
     div(class="subTask" :class="{'expandSubTask': expandSubTask}" v-for="subTask of subTasks" :key="subTask.id")
-      task(:text="subTask.text" :id="subTask.id" :priority="subTask.priority" :canHaveSubtasks ='false' @taskChanged="changeSubTask($event, subTask.id)")
+      task(:text="subTask.text" :id="subTask.id" @taskDelete="$emit('subTaskDelete', subTask.id)"  :completed="subTask.completed" :priority="subTask.priority" :canHaveSubtasks ='false' @taskChanged="changeSubTask($event, subTask.id)")
 </template>
 
 <script>
@@ -21,8 +21,16 @@ props: {
     type: String,
     required: true
   },
+  dateCompleted: {
+    type: Date,
+    required: false
+  },
   priority: {
     type: Number,
+    required: true
+  },
+  completed: {
+    type: Boolean,
     required: true
   },
   subTasks: {
@@ -56,8 +64,10 @@ methods: {
   addSubTask() {
     this.task.subTasks.push({
       id: uniqid(),
-      text: 'Новое под-задание',
-      priority: 4
+      text: 'Новая подзадача',
+      priority: 4,
+      completed: false,
+      date: new Date(new Date().setHours(0, 0, 0, 0))
     })
     this.$emit('taskChanged', {
       id:this.id,
@@ -73,7 +83,7 @@ methods: {
 .subTask { 
   &>div {
     margin-left: 45px;
-    margin-top: 25px;
+    margin-top: 40px;
     padding-bottom: 0; 
     display: none;
   }

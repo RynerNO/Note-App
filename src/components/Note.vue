@@ -7,13 +7,17 @@
         i.noteTaskCircle
         p {{ task.text }}
     div.noteDeleteButton(@click="$emit('deleteNote')")
-    router-link.noteEditButton(to="/")
+    router-link.noteEditButton(:to="`/note/${id}`") 
       img(src="../assets/EditNoteButton.svg")
 </template>
 
 <script>
 export default {
   props: {
+    id: {
+      type: String,
+      required: true
+    },
     name: {
       type: String,
       required: true
