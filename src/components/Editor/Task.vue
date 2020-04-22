@@ -2,7 +2,7 @@
   div
     div.taskContainer
       div.taskExpandSubtask(v-if="(!editTaskInput && task.canHaveSubtasks && hasSubtasks)" :class="{'taskExpandSubtaskActive': expand}" @click="expandSubTask")
-      div.taskCircle(v-if="!editTaskInput && !task.completed" @click="setCompleted" :class="{'priorityOneBackground': task.priority === 1, 'priorityTwoBackground': task.priority === 2, 'priorityThreeBackground': task.priority === 3}")
+      div.taskCircle(v-if="!editTaskInput && !task.completed && !task.subTaskCompleted" @click="setCompleted" :class="{'priorityOneBackground': task.priority === 1, 'priorityTwoBackground': task.priority === 2, 'priorityThreeBackground': task.priority === 3}")
         img(src="../../assets/CheckIcon.svg")
       div.taskContent(:class="{'taskContentEditing': editTaskInput}")
         p.taskText(v-show="!editTaskInput") {{ task.text }}
@@ -14,25 +14,25 @@
           button.editButtonSave(@click="applyEdit") Сохранить
           button.editButtonCancel(@click="cancelEdit") Отмена
       div.taskActionsContainer(v-if="!editTaskInput")
-        div.taskEditButton(@click="editText" v-if="!task.completed")
+        div.taskEditButton(@click="editText" v-if="!task.completed && !task.subTaskCompleted")
           img(src="../../assets/TaskEditButton.svg")
         div(ref="calendarCont" v-click-outside="hideCalendar")
             div.taskSetTimeButton(v-if="task.canSetDate && !task.completed && !task.isSubTask" @click="showCalendar = !showCalendar" )
                 img(src="../../assets/SetTimeButton.svg")
             calendar.calendar(  @setDate="setDate($event)" :selected="new Date(Date.parse(task.date))" :class="{'showCalendar': showCalendar}")
         div.taskSetPriorityContainer(ref="priorityCont" v-click-outside="hidePriorityList")
-            div.taskSetPriority(v-if="!task.completed" @click="showPriorityList = !showPriorityList" :class="{'priorityOneBackground': task.priority === 1, 'priorityTwoBackground': task.priority === 2, 'priorityThreeBackground': task.priority === 3}")
+            div.taskSetPriority(v-if="!task.completed && !task.subTaskCompleted" @click="showPriorityList = !showPriorityList" :class="{'priorityOneBackground': task.priority === 1, 'priorityTwoBackground': task.priority === 2, 'priorityThreeBackground': task.priority === 3}")
             div.taskPriorityList(:class="{'showPriorityList': showPriorityList}")
                 div.priorityOne(v-if="!(task.priority === 1)" @click="setPriority(1)")
                 div.priorityTwo(v-if="!(task.priority === 2)" @click="setPriority(2)")
                 div.priorityThree(v-if="!(task.priority === 3)" @click="setPriority(3)")
                 div.priorityFour(v-if="!(task.priority === 4)" @click="setPriority(4)")
-        div.taskAddSubtask(@click="addSubTask(); $emit('addSubTask')" v-if="task.canHaveSubtasks && !task.completed")
+        div.taskAddSubtask(@click="addSubTask(); $emit('addSubTask')" v-if="task.canHaveSubtasks && !task.completed && !task.subTaskCompleted")
         div.taskDeleteButton(@click="$emit('taskDelete')")
           i
       div.date(v-if="task.canSetDate && !editTaskInput && !task.isSubTask")
         span {{ dateText }}
-        span(v-if="dateCompletedText")  - {{ dateCompletedText }}
+        span(v-if="dateCompletedText")  - {{ dateCompletedText }}      
     div.subTask(v-for="subTask of subTasksSorted" :key="subTask.id" v-if="expand")
       task(v-bind="subTask" :completed="task.completed" @addSubTask="sendChanges" @taskDelete="deleteSubTask(subTask)" @subTaskChanged="makeChanges($event)")
 </template>
@@ -62,6 +62,11 @@ export default {
             required: true
         },
         isSubTask: {
+            type: Boolean,
+            required: false,
+            default: false
+        },
+        subTaskCompleted: {
             type: Boolean,
             required: false,
             default: false
@@ -206,11 +211,10 @@ export default {
                 canHaveSubtasks,
                 isSubTask: true,
                 completed: this.task.completed,
+                subTaskCompleted: this.task.completed,
                 date: this.task.date
             })
             if (!this.expand) this.expand = true
-            this.$forceUpdate() // rerender component to show nested changes
-            this.sendChanges()
         },
         deleteSubTask(subTaskObj) {
 
@@ -220,7 +224,7 @@ export default {
 
                     this.task.subTasks.splice(i, 1)
                     this.sendChanges()
-                    this.$forceUpdate()
+
                     this.flash('Подзадача удалена!', 'error')
 
                 }
@@ -234,9 +238,13 @@ export default {
             }
         },
         setCompleted() {
-            this.task.completed = true
-            this.task.dateCompleted = new Date(new Date().setHours(0, 0, 0, 0)).toString()
-            this.flash('Отправлено в архив')
+            if (this.task.isSubTask) {
+                this.task.subTaskCompleted = true
+            } else {
+                this.task.completed = true
+                this.task.dateCompleted = new Date(new Date().setHours(0, 0, 0, 0)).toString()
+                this.flash('Отправлено в архив')
+            }
             this.sendChanges()
         },
         applyEdit() {
@@ -338,9 +346,12 @@ export default {
     margin: 0 20px;
     position: relative;
     margin-top: 40px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 5px;
     &:hover {
         .taskActionsContainer {
-            opacity: 1;
+            display: flex;
         }
     }
 }
@@ -485,7 +496,7 @@ export default {
     top: -5px;
     display: flex;
     align-items: center;
-    opacity: 0;
+    display: none;
     transition: opacity 0.3s linear;
 }
 
@@ -628,9 +639,10 @@ export default {
 .date {
     width: 100%;
     position: absolute;
-    top: 34px;
+    top: 44px;
     left: 32px;
     color: $red_main;
     cursor: default;
 }
+
 </style>

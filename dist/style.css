@@ -490,10 +490,13 @@
     border-bottom: 1px solid #ccc;
     margin: 0 20px;
     position: relative;
-    margin-top: 40px
+    margin-top: 40px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    padding-right: 5px
 }
 .taskContainer:hover .taskActionsContainer {
-            opacity: 1;
+            display: flex;
 }
 .taskContent {
     width: 100%;
@@ -643,7 +646,7 @@
     top: -5px;
     display: flex;
     align-items: center;
-    opacity: 0;
+    display: none;
     transition: opacity 0.3s linear;
 }
 .taskSetPriority {
@@ -871,11 +874,12 @@
 .date {
     width: 100%;
     position: absolute;
-    top: 34px;
+    top: 44px;
     left: 32px;
     color: #F5001D;
     cursor: default;
 }
+
 
 .noteHeader[data-v-a9b76048] {
 	position: fixed;
