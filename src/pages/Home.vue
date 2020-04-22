@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import Note from '@components/Note.vue'
+import Note from '@components/Home/Note.vue'
 import FlashMessage from '@components/FlashMessage.vue'
 import ModalDeleteNote from '@components/ModalConfirm.vue'
 import { mapState } from 'vuex';

@@ -13,7 +13,7 @@ export default {
   },
 
   [DELETE_NOTE]: (state, id) => {
-    
+    console.log(id)
     state.forEach((note, i) => {
       if (note.id === id) {
           state.splice(i, 1)

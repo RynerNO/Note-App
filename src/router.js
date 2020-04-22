@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 import Home from '@pages/Home.vue'
-import NoteEdit from '@pages/NoteEdit.vue'
+import Editor from '@pages/Editor.vue'
 const routes = [
   {
     path: '/',
@@ -8,7 +8,7 @@ const routes = [
   },
   {
     path: '/note/:id',
-    component: NoteEdit
+    component: Editor
   }
 ]
 

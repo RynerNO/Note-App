@@ -22,13 +22,20 @@
 
 <script>
 export default {
+    props: {
+        selected: {
+            type: Date,
+            required: false,
+            default:() => new Date(new Date().setHours(0, 0, 0, 0))
+        }
+    },
     data() {
         return {
             days: '',
             monthNames: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
             yearShow: '',
             monthShow: 4,
-            selectedDay: '',
+            selectedDay: this.selected,
             today: new Date(),
         }
     },
@@ -51,9 +58,14 @@ export default {
             return date.getTime() === new Date(this.yearShow, this.monthShow - 1, day).getTime()
         },
         setDate(event, day) {
+            // check for empty cell
             if (day === '\u00a0') return false
+
             const date = new Date(this.yearShow, this.monthShow - 1, day)
-            if (!this.selectedDay === '' && this.selectedDay.getTime() == date.getTime() || this.past(this.today, day)) return false
+            // check if selected day is the same or in the past
+            if (!this.selectedDay === '' && this.selectedDay.getTime() == 
+            date.getTime() || this.past(this.today, day)) return false
+            
             this.selectedDay = date
             this.$emit('setDate', date)
         },
@@ -67,14 +79,14 @@ export default {
                 return day - 1;
             }
             const days = this.days = []
-            for (let i = 0; i < getDay(d); i++) {
+            for (let i = 0; i < getDay(d); i++) {// fill cells until first day
                 days.push("\u00a0")
             }
             while (d.getMonth() == month - 1) {
                 days.push(String(d.getDate()))
                 d.setDate(d.getDate() + 1);
             }
-            if (getDay(d) != 0) {
+            if (getDay(d) != 0) {//fill cells if threre's left any
                 for (let i = getDay(d); i < 7; i++) {
                     days.push("\u00a0")
                 }

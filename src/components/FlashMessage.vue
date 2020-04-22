@@ -21,7 +21,7 @@ export default {
 }
 
 .flashMessage {
-    width: 250px;
+    width: 270px;
     height: 70px;
     border-radius: 15px;
     position: fixed;

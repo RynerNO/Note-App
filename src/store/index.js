@@ -7,12 +7,15 @@ import VuexPersist from 'vuex-persist'
 Vue.use(Vuex)
 const vuexPersist = new VuexPersist({
   key: 'note-app',
+  modules: ['notes'],
   storage: window.localStorage
 })
 export default new Vuex.Store({
-  plugins: [vuexPersist.plugin],
   modules: {
     notes,
-    flash
-  }
+    flash,
+    
+    
+  },
+  plugins: [vuexPersist.plugin]
 });

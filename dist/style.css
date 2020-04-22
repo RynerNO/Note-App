@@ -1,5 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat+Alternates:400,500|Roboto&display=swap);
-.noteContainer[data-v-34551322] {
+.noteContainer[data-v-707f3a42] {
     margin: 10px;
     grid-column: span 1/span 1;
     position: relative;
@@ -10,34 +10,34 @@
     display: flex;
     flex-direction: column;
 }
-.noteContainer .noteTitle[data-v-34551322] {
-      align-self: flex-start;
-      max-width: 90%;
+.noteTitle[data-v-707f3a42] {
+    align-self: flex-start;
+    max-width: 90%;
 }
-.noteContainer .noteTitle h2[data-v-34551322] {
+.noteTitle h2[data-v-707f3a42] {
         margin: 0;
         font-family: 'Roboto';
         font-size: 1rem;
 }
-.noteContainer .noteContent[data-v-34551322] {
-      padding: 1rem;
+.noteContent[data-v-707f3a42] {
+    padding: 1rem;
 }
-.noteContainer .noteContent .noteTask[data-v-34551322] {
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-bottom: 0.5rem;
+.noteTask[data-v-707f3a42] {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-bottom: 0.5rem;
 }
-.noteContainer .noteContent .noteTask .noteTaskCircle[data-v-34551322] {
-          width: 16px;
-          height: 16px;
-          border-radius: 9999px;
-          background: rgba(0, 0, 0, 0.03);
-          border: 1px solid rgba(0, 0, 0, 0.24);
-          display: block;
-          margin-right: 10px;
+.noteTaskCircle[data-v-707f3a42] {
+    width: 16px;
+    height: 16px;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.03);
+    border: 1px solid rgba(0, 0, 0, 0.24);
+    display: block;
+    margin-right: 10px;
 }
-.noteContainer .noteDeleteButton[data-v-34551322] {
+.noteDeleteButton[data-v-707f3a42] {
   width: 35px;
   height: 35px;
   background: transparent;
@@ -45,14 +45,14 @@
   transition: background 0.3s linear;
   cursor: pointer;
 }
-.noteContainer .noteDeleteButton[data-v-34551322]:hover {
+.noteDeleteButton[data-v-707f3a42]:hover {
     
       background:#FF0505
 }
-.noteContainer .noteDeleteButton[data-v-34551322]:hover::after,.noteContainer .noteDeleteButton[data-v-34551322]:hover::before {
+.noteDeleteButton[data-v-707f3a42]:hover::after,.noteDeleteButton[data-v-707f3a42]:hover::before {
       background: #fff;
 }
-.noteContainer .noteDeleteButton[data-v-34551322]::after {
+.noteDeleteButton[data-v-707f3a42]::after {
     content: '';
     width: 25px;
     height: 2px;
@@ -64,7 +64,7 @@
     top: 16px;
     left: 5px;
 }
-.noteContainer .noteDeleteButton[data-v-34551322]::before {
+.noteDeleteButton[data-v-707f3a42]::before {
     content: '';
     width: 25px;
     height: 2px;
@@ -76,32 +76,66 @@
     top: 16px;
     left: 5px;
 }
-.noteContainer .noteDeleteButton[data-v-34551322] {
-      position: absolute;
-      top: 5px;
-      right: 5px;
+.noteDeleteButton[data-v-707f3a42] {
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
-.noteContainer .noteEditButton[data-v-34551322] {
-      position: absolute;
-      right: 15px;
-      bottom: 10px;
-      width: 30px;
-      height: 30px;
+.noteEditButton[data-v-707f3a42] {
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    width: 40px;
+    height: 40px;
+    padding: 6px
 }
-.noteContainer .noteEditButton img[data-v-34551322] {
+.noteEditButton[data-v-707f3a42]:hover {
+      background: #dfdfdf;
+}
+.noteEditButton img[data-v-707f3a42] {
         width: 100%;
 }
-.priorityOne[data-v-34551322] {
-      background: rgba(245, 0, 29, 0.08);
-      border-color: #F5001D;
+.priorityOneBackground[data-v-707f3a42] {
+    background: rgba(245, 0, 29, 0.08);
+    border-color: #F5001D;
 }
-.priorityTwo[data-v-34551322] {
-      background: rgba(255, 169, 64, 0.25);
-      border-color: #FFA940;
+.priorityTwoBackground[data-v-707f3a42] {
+    background: rgba(255, 169, 64, 0.25);
+    border-color: #FFA940;
 }
-.priorityThree[data-v-34551322] {
-      background: rgba(3, 67, 106, 0.15);
-      border-color: #03436A;
+.priorityThreeBackground[data-v-707f3a42] {
+    background: rgba(3, 67, 106, 0.15);
+    border-color: #03436A;
+}
+
+.success[data-v-29ce9aa7] {
+    background: #2DD700;
+    color: #fff;
+}
+.error[data-v-29ce9aa7] {
+    background: #9F0013;
+    color: #fff;
+}
+.flashMessage[data-v-29ce9aa7] {
+    width: 270px;
+    height: 70px;
+    border-radius: 15px;
+    position: fixed;
+    bottom: 10%;
+    left: 50%;
+    margin-left: -125px;
+    margin-bottom: -35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200
+}
+@media(min-width: 768px) {
+.flashMessage[data-v-29ce9aa7] {
+        bottom: 50px;
+        left: 50px;
+        margin: 0
+}
 }
 
 .modalContainer[data-v-abcd6bfa] {
@@ -436,6 +470,17 @@
     margin-left: 5px;
 }
 
+.task {
+    width: 100%;
+}
+.subTask>div {
+        margin-left: 45px;
+        margin-top: 40px;
+        padding-bottom: 0;
+}
+.expandSubTask>div {
+        display: flex;
+}
 .taskContainer {
     display: flex;
     align-items: center;
@@ -445,7 +490,7 @@
     border-bottom: 1px solid #ccc;
     margin: 0 20px;
     position: relative;
-    margin-top: 20px
+    margin-top: 40px
 }
 .taskContainer:hover .taskActionsContainer {
             opacity: 1;
@@ -475,6 +520,10 @@
   font-weight: 500;
     background-color: #64A8D1;
     color: #fff;
+}
+.buttonDisabled {
+    cursor: default;
+    background-color: #dad9d9;
 }
 .editButtonCancel {
   outline: none;
@@ -521,6 +570,7 @@
     margin-bottom: 5px;
     position: relative;
     align-self: flex-start;
+    z-index: 15;
 }
 .taskCircle img {
         display: none;
@@ -580,7 +630,7 @@
     width: 250px;
     left: -56px;
     top: 34px;
-    visibility: hidden;
+    display: none;
     transition: all 0.2s linear;
 }
 .showCalendar {
@@ -618,62 +668,71 @@
         right: 20px;
         top: 6px;
 }
-.taskSetPriority:hover .taskPriorityList {
-            height: 110px;
+.taskSetPriority .showPriorityList {
+        height: 110px;
+}
+.taskSetPriorityContainer {
+    position: relative;
 }
 .taskPriorityList {
     position: absolute;
     top: 19px;
-    left: -1px;
+    left: 15px;
     width: 25px;
     height: 0;
     overflow: hidden;
-    transition: height 0.1s linear;
+    transition: height 0.3s linear;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
-.taskPriorityList .priorityOne {
-    min-width: 20px;
-    height: 20px;
-    border-radius: 9999px;
-    background: #FAFAFA;
-    border: 1px solid #CDCDCD;
-    cursor: pointer;
-        background: rgba(245, 0, 29, 0.08);
-        border-color: #F5001D;
-        margin-top: 5px;
+.showPriorityList {
+    height: 110px;
 }
-.taskPriorityList .priorityTwo {
+.priorityOne {
     min-width: 20px;
     height: 20px;
     border-radius: 9999px;
     background: #FAFAFA;
     border: 1px solid #CDCDCD;
     cursor: pointer;
-        background: rgba(255, 169, 64, 0.25);
-        border-color: #FFA940;
-        margin-top: 5px;
+    z-index: 15;
+    background: rgba(245, 0, 29, 0.08);
+    border-color: #F5001D;
+    margin-top: 5px;
 }
-.taskPriorityList .priorityThree {
+.priorityTwo {
     min-width: 20px;
     height: 20px;
     border-radius: 9999px;
     background: #FAFAFA;
     border: 1px solid #CDCDCD;
     cursor: pointer;
-        background: rgba(3, 67, 106, 0.15);
-        border-color: #03436A;
-        margin-top: 5px;
+    z-index: 15;
+    background: rgba(255, 169, 64, 0.25);
+    border-color: #FFA940;
+    margin-top: 5px;
 }
-.taskPriorityList .priorityFour {
+.priorityThree {
     min-width: 20px;
     height: 20px;
     border-radius: 9999px;
     background: #FAFAFA;
     border: 1px solid #CDCDCD;
     cursor: pointer;
-        margin-top: 5px;
+    z-index: 15;
+    background: rgba(3, 67, 106, 0.15);
+    border-color: #03436A;
+    margin-top: 5px;
+}
+.priorityFour {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 9999px;
+    background: #FAFAFA;
+    border: 1px solid #CDCDCD;
+    cursor: pointer;
+    margin-top: 5px;
 }
 .taskAddSubtask {
   width: 25px;
@@ -818,63 +877,30 @@
     cursor: default;
 }
 
-
-.subTask>div[data-v-0fb0c4fa] {
-    margin-left: 45px;
-    margin-top: 25px;
-    padding-bottom: 0; 
-    display: none;
+.noteHeader[data-v-a9b76048] {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 45px;
+	background: #fff;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	border: 1px solid #d8d8d8;
 }
-.expandSubTask>div[data-v-0fb0c4fa] {
-  display: flex;
+.noteBurgerButton[data-v-a9b76048] {
+	cursor: pointer;
+	padding: 10px
 }
-
-.success[data-v-29ce9aa7] {
-    background: #2DD700;
-    color: #fff;
+.noteBurgerButton[data-v-a9b76048]:hover {
+		background: rgba(0, 0, 0, 0.027);
 }
-.error[data-v-29ce9aa7] {
-    background: #9F0013;
-    color: #fff;
-}
-.flashMessage[data-v-29ce9aa7] {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.calendar[data-v-13e81880] {
-    width: 200px;
-    position: fixed;
-    left: 50%;
-    top: 50%
-}
-.noteHeader[data-v-13e81880] {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 45px;
-    background: #fff;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    border: 1px solid #D8D8D8;
-}
-.noteBurgerButton[data-v-13e81880] {
-    cursor: pointer;
-    padding: 10px
-}
-.noteBurgerButton[data-v-13e81880]:hover {
-        background: rgba(0, 0, 0, 0.027);
-}
-@media(min-width: 768px) {
-.noteBurgerButton[data-v-13e81880] {
-        margin-right: 15px
+@media (min-width: 768px) {
+.noteBurgerButton[data-v-a9b76048] {
+		margin-right: 15px
 }
 }
-.addTaskButton[data-v-13e81880] {
+.addTaskButton[data-v-a9b76048] {
   width: 25px;
   height: 25px;
   background-color: #2DD700;
@@ -883,10 +909,10 @@
   position: relative;
   overflow: hidden
 }
-.addTaskButton[data-v-13e81880]::before {
+.addTaskButton[data-v-a9b76048]::before {
     transform: rotate(90deg);
 }
-.addTaskButton[data-v-13e81880]::before,.addTaskButton[data-v-13e81880]::after {
+.addTaskButton[data-v-a9b76048]::before,.addTaskButton[data-v-a9b76048]::after {
     content: '';
     background: #fff;
     position: absolute;
@@ -896,160 +922,161 @@
     left: 4px;
 }
 @media(min-width: 768px) {
-.addTaskButton[data-v-13e81880] {
+.addTaskButton[data-v-a9b76048] {
   width: 35px;
   height: 35px
 }
-.addTaskButton[data-v-13e81880]::before,.addTaskButton[data-v-13e81880]::after {
+.addTaskButton[data-v-a9b76048]::before,.addTaskButton[data-v-a9b76048]::after {
     width: 20px;
     height: 2px;
     top: 17px;
     left: 8px;
 }
 }
-.addTaskButton[data-v-13e81880] {
-    margin-left: 5px;
-    cursor: pointer;
-    min-width: 25px;
+.addTaskButton[data-v-a9b76048] {
+	margin-left: 5px;
+	cursor: pointer;
+	min-width: 25px;
 }
-.addTaskButton span[data-v-13e81880] {
-        color: #2DD700;
-        font-family: 'Montserrat Alternates';
-        position: absolute;
-        display: block;
-        white-space: nowrap;
-        top: 10px;
-        left: 35px;
-        font-size: 12px;
-        font-weight: 500;
+.addTaskButton span[data-v-a9b76048] {
+		color: #2DD700;
+		font-family: "Montserrat Alternates";
+		position: absolute;
+		display: block;
+		white-space: nowrap;
+		top: 10px;
+		left: 35px;
+		font-size: 12px;
+		font-weight: 500;
 }
-@media(min-width: 640px) {
-.addTaskButton[data-v-13e81880] {
-        width: 190px;
-        height: 35px;
-        overflow: hidden;
-        background: transparent;
-        border: 1px solid #2DD700;
-        transition: all 0.3s ease-in-out;
+@media (min-width: 640px) {
+.addTaskButton[data-v-a9b76048] {
+		width: 190px;
+		height: 35px;
+		overflow: hidden;
+		background: transparent;
+		border: 1px solid #2DD700;
+		transition: all 0.3s ease-in-out;
 }
-.addTaskButton span[data-v-13e81880] {
-            display: block;
+.addTaskButton span[data-v-a9b76048] {
+			display: block;
 }
-.addTaskButton[data-v-13e81880]::before,
-        .addTaskButton[data-v-13e81880]::after {
-            background: #2DD700;
-            width: 20px;
-            height: 2px;
-            top: 17px;
-            left: 8px;
-}
-}
-@media(min-width: 768px) {
-.addTaskButton[data-v-13e81880]:hover {
-            width: 190px;
-            overflow: hidden;
-            background: transparent;
-            border: 1px solid #2DD700;
-            transition: all 0.3s ease-in-out
-}
-.addTaskButton[data-v-13e81880]:hover::before,
-            .addTaskButton[data-v-13e81880]:hover::after {
-                background: #2DD700;
-                -webkit-animation: spin1 1s ease-in-out;
-                        animation: spin1 1s ease-in-out;
-}
-.addTaskButton[data-v-13e81880]:hover::after {
-                -webkit-animation: spin2 1s ease-in-out;
-                        animation: spin2 1s ease-in-out;
-}
-.addTaskButton:hover span[data-v-13e81880] {
-                display: block;
+.addTaskButton[data-v-a9b76048]::before,
+		.addTaskButton[data-v-a9b76048]::after {
+			background: #2DD700;
+			width: 20px;
+			height: 2px;
+			top: 17px;
+			left: 8px;
 }
 }
-.undoRedoSaveContainer[data-v-13e81880] {
-    display: flex;
+@media (min-width: 768px) {
+.addTaskButton[data-v-a9b76048]:hover {
+			width: 190px;
+			overflow: hidden;
+			background: transparent;
+			border: 1px solid #2DD700;
+			transition: all 0.3s ease-in-out
 }
-.undoRedoSaveContainer .undoButton span[data-v-13e81880] {
-            display: none;
+.addTaskButton[data-v-a9b76048]:hover::before,
+			.addTaskButton[data-v-a9b76048]:hover::after {
+				background: #2DD700;
+				-webkit-animation: spin1 1s ease-in-out;
+				        animation: spin1 1s ease-in-out;
 }
-@media (min-width:1280px) {
-.undoRedoSaveContainer .undoButton span[data-v-13e81880] {
-                display: block;
+.addTaskButton[data-v-a9b76048]:hover::after {
+				-webkit-animation: spin2 1s ease-in-out;
+				        animation: spin2 1s ease-in-out;
 }
-}
-.undoRedoSaveContainer .redoButton span[data-v-13e81880] {
-            display: none;
-}
-@media (min-width:1280px) {
-.undoRedoSaveContainer .redoButton span[data-v-13e81880] {
-                display: block;
-}
-}
-.saveButton span[data-v-13e81880] {
-        display: none;
-}
-@media (min-width:610px) {
-.saveButton span[data-v-13e81880] {
-            display: block;
+.addTaskButton:hover span[data-v-a9b76048] {
+				display: block;
 }
 }
-.menuButton[data-v-13e81880] {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 5px;
-    padding: 10px;
+.undoRedoSaveContainer[data-v-a9b76048] {
+	display: flex;
 }
-.menuButton span[data-v-13e81880] {
-        margin-left: 12px;
+.undoRedoSaveContainer .undoButton span[data-v-a9b76048] {
+			display: none;
 }
-.menuButton[data-v-13e81880]:hover {
-        background: rgba(0, 0, 0, 0.027);
-}
-@media(min-width: 610px) {
-.menuButton[data-v-13e81880] {
-        margin-left: 15px
+@media (min-width: 1280px) {
+.undoRedoSaveContainer .undoButton span[data-v-a9b76048] {
+				display: block;
 }
 }
-@media(min-width: 1280px) {
-.menuButton[data-v-13e81880] {
-        margin-left: 30px
+.undoRedoSaveContainer .redoButton span[data-v-a9b76048] {
+			display: none;
+}
+@media (min-width: 1280px) {
+.undoRedoSaveContainer .redoButton span[data-v-a9b76048] {
+				display: block;
 }
 }
-.cancelDeleteContainer[data-v-13e81880] {
-    display: flex;
-    margin-left: auto;
+.saveButton span[data-v-a9b76048] {
+		display: none;
 }
-.cancelDeleteContainer .deleteButton span[data-v-13e81880] {
-            display: none;
-}
-@media (min-width:1024px) {
-.cancelDeleteContainer .deleteButton span[data-v-13e81880] {
-                display: block;
+@media (min-width: 610px) {
+.saveButton span[data-v-a9b76048] {
+			display: block;
 }
 }
-.cancelDeleteContainer .cancelButton span[data-v-13e81880] {
-            display: none;
+.menuButton[data-v-a9b76048] {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+	margin-left: 5px;
+	padding: 10px;
 }
-@media (min-width:1024px) {
-.cancelDeleteContainer .cancelButton span[data-v-13e81880] {
-                display: block;
+.menuButton span[data-v-a9b76048] {
+		margin-left: 12px;
+}
+.menuButton[data-v-a9b76048]:hover {
+		background: rgba(0, 0, 0, 0.027);
+}
+@media (min-width: 610px) {
+.menuButton[data-v-a9b76048] {
+		margin-left: 15px
 }
 }
-.noteSidebar[data-v-13e81880] {
+@media (min-width: 1280px) {
+.menuButton[data-v-a9b76048] {
+		margin-left: 30px
+}
+}
+.cancelDeleteContainer[data-v-a9b76048] {
+	display: flex;
+	margin-left: auto;
+}
+.cancelDeleteContainer .deleteButton span[data-v-a9b76048] {
+			display: none;
+}
+@media (min-width: 1024px) {
+.cancelDeleteContainer .deleteButton span[data-v-a9b76048] {
+				display: block;
+}
+}
+.cancelDeleteContainer .cancelButton span[data-v-a9b76048] {
+			display: none;
+}
+@media (min-width: 1024px) {
+.cancelDeleteContainer .cancelButton span[data-v-a9b76048] {
+				display: block;
+}
+}
+
+.noteSidebar[data-v-dd94146c] {
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: #F6F5F5;
+    background: #f6f5f5;
     position: fixed;
     top: 45px;
     height: 100%;
     left: 0;
-    transition: all 0.5s linear;
+    transition: all 0.4s linear;
     z-index: 50;
 }
-.noteSidebar .noteSidebarNavButton[data-v-13e81880] {
+.noteSidebar .noteSidebarNavButton[data-v-dd94146c] {
   outline: none;
   margin: 0 5px;
   border-radius: 10.5px;
@@ -1061,118 +1088,126 @@
   font-family: 'Montserrat Alternate';
   font-size: 14px;
   font-weight: 500;
-        background: #EFEDE4;
+        background: #efede4;
         display: flex;
         font-size: 17px;
-        font-family: 'Montserrat Alternates', 'sans-serif';
+        font-family: "Montserrat Alternates", "sans-serif";
         font-weight: 500;
         color: #000000;
         width: 208px;
         margin-top: 15px;
         align-items: center
 }
-.noteSidebar .noteSidebarNavButton[data-v-13e81880]:hover {
-            background: #DADADA;
+.noteSidebar .noteSidebarNavButton[data-v-dd94146c]:hover {
+            background: #dadada;
 }
-.noteSidebar .noteSidebarNavButtonActive[data-v-13e81880] {
-        background: #FA3E54;
+.noteSidebar .noteSidebarNavButtonActive[data-v-dd94146c] {
+        background: #fa3e54;
         color: #fff
 }
-.noteSidebar .noteSidebarNavButtonActive[data-v-13e81880]:hover {
+.noteSidebar .noteSidebarNavButtonActive[data-v-dd94146c]:hover {
             cursor: default;
-            background: #FA3E54;
+            background: #fa3e54;
 }
-.noteSidebarToggle[data-v-13e81880] {
+.noteSidebarToggle[data-v-dd94146c] {
     left: -100%;
 }
-@media(min-width: 768px) {
-.noteContent[data-v-13e81880] {
-        margin-left: 280px;
-}
-.noteContentToggle[data-v-13e81880] {
-        margin-left: 0;
-}
-.noteSidebar[data-v-13e81880] {
+@media (min-width: 768px) {
+.noteSidebar[data-v-dd94146c] {
         width: 280px;
         left: 0;
 }
-.noteSidebarToggle[data-v-13e81880] {
+.noteSidebarToggle[data-v-dd94146c] {
         left: -100%;
 }
-.noteSidebarToggle .noteSidebarNav[data-v-13e81880] {
+.noteSidebarNav[data-v-dd94146c] {
             margin-top: 75px;
 }
 }
-@media (min-width:1280px) {
-.noteContent[data-v-13e81880] {
-        margin-left: 0;
-}
-.noteContentToggle[data-v-13e81880] {
-        margin-left: 280px;
-}
-.noteSidebar[data-v-13e81880] {
+@media (min-width: 1280px) {
+.noteSidebar[data-v-dd94146c] {
         width: 280px;
         left: -100%;
 }
-.noteSidebarToggle[data-v-13e81880] {
+.noteSidebarToggle[data-v-dd94146c] {
         left: 0;
 }
-.noteSidebarNav[data-v-13e81880] {
-        margin-top: 75px;
+}
+
+.calendar[data-v-b27762de] {
+    width: 200px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+}
+@media (min-width: 768px) {
+.noteContent[data-v-b27762de] {
+        margin-left: 280px;
+}
+.noteContentToggle[data-v-b27762de] {
+        margin-left: 0;
 }
 }
-.noteContent[data-v-13e81880] {
+@media (min-width: 1280px) {
+.noteContent[data-v-b27762de] {
+        margin-left: 0;
+}
+.noteContentToggle[data-v-b27762de] {
+        margin-left: 280px;
+}
+}
+.noteContent[data-v-b27762de] {
     margin-top: 70px;
-    transition: margin 0.5s linear;
+    transition: margin 0.4s linear;
 }
-.titleContainer[data-v-13e81880] {
+.titleContainer[data-v-b27762de] {
     width: 90%;
     margin-left: auto;
     margin-right: auto;
     text-align: center;
     word-wrap: break-word;
 }
-.titleUnderline[data-v-13e81880] {
+.titleUnderline[data-v-b27762de] {
     width: 80%;
 }
-.title[data-v-13e81880] {
+.title[data-v-b27762de] {
     font-size: 1.5rem;
 }
-.title p[data-v-13e81880] {
+.title p[data-v-b27762de] {
         font-size: inherit;
 }
-.editTitleInput[data-v-13e81880] {
+.editTitleInput[data-v-b27762de] {
     outline: none;
     padding: 0;
 }
-.currentFilter[data-v-13e81880] {
+.currentFilter[data-v-b27762de] {
     font-size: 24px;
-    font-family: 'Montserrat Alternates', 'sans-serif';
+    font-family: "Montserrat Alternates", "sans-serif";
     color: #000000;
     font-weight: 500;
     margin-left: 10px
 }
-@media(min-width: 768px) {
-.currentFilter[data-v-13e81880] {
+@media (min-width: 768px) {
+.currentFilter[data-v-b27762de] {
         margin-left: 30px
 }
 }
-.tasksContainer[data-v-13e81880] {
+.tasksContainer[data-v-b27762de] {
     margin-top: 40px
 }
-@media(min-width: 768px) {
-.tasksContainer[data-v-13e81880] {
+@media (min-width: 768px) {
+.tasksContainer[data-v-b27762de] {
         margin-left: 40px
 }
 }
-@media(min-width: 1024px) {
-.tasksContainer[data-v-13e81880] {
+@media (min-width: 1024px) {
+.tasksContainer[data-v-b27762de] {
         width: 80%;
         margin: 0 auto
 }
 }
-@media(min-width: 1280px) {
-.tasksContainer[data-v-13e81880] {
+@media (min-width: 1280px) {
+.tasksContainer[data-v-b27762de] {
         width: 70%
 }
 }
