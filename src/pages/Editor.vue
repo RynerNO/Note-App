@@ -9,7 +9,7 @@
         p.title(v-show="!editTitleInput" @click="editTitle") {{ note.name }}
         input.title.editTitleInput(
           @blur="editTitleInput = false; pushChange()"
-          v-show="editTitleInput" ref="editTitleInput" v-model="note.name" v-autowidth="{maxWidth: '320px', minWidth:'30px'}")
+          v-show="editTitleInput" ref="editTitleInput" v-model="note.name" v-autowidth="{ minWidth:'30px'}")
         hr.titleUnderline
       p.currentFilter {{ textFilterName }}
       div.tasksContainer
@@ -179,10 +179,16 @@ export default {
     left: 50%;
     top: 50%;
 }
-
+.noteContent {
+    margin-top: 70px;
+    transition: margin 0.4s linear;
+    padding-bottom: 150px;
+    overflow: hidden;
+}
 @media (min-width: 768px) {
     .noteContent {
         margin-left: 280px;
+        
     }
     .noteContentToggle {
         margin-left: 0;
@@ -198,10 +204,7 @@ export default {
     }
 }
 
-.noteContent {
-    margin-top: 70px;
-    transition: margin 0.4s linear;
-}
+
 
 .titleContainer {
     width: 90%;
@@ -217,12 +220,19 @@ export default {
 
 .title {
     font-size: 1.5rem;
+    word-break: break-all;
     p {
         font-size: inherit;
     }
 }
 
 .editTitleInput {
+    max-width: 300px !important;
+    @media(min-width: 768px) {
+        max-width: 620px !important;
+    }
+    
+    
     outline: none;
     padding: 0;
 }

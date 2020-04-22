@@ -57,9 +57,11 @@ export default {
     align-self: flex-start;
     max-width: 90%;
     h2 {
-        margin: 0;
         font-family: 'Roboto';
         font-size: 1rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
     }
 }
 
@@ -72,10 +74,15 @@ export default {
     align-items: center;
     justify-content: flex-start;
     padding-bottom: 0.5rem;
+    p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 }
 
 .noteTaskCircle {
-    width: 16px;
+    min-width: 16px;
     height: 16px;
     border-radius: 9999px;
     background: rgba(0, 0, 0, 0.03);
@@ -99,7 +106,7 @@ export default {
     height: 40px;
     padding: 6px;
     &:hover {
-      background: #dfdfdf;
+        background: #dfdfdf;
     }
     img {
         width: 100%;

@@ -41,6 +41,7 @@ export default {
 	display: flex;
 	align-items: center;
 	border: 1px solid #d8d8d8;
+	z-index: 55;
 }
 
 .noteBurgerButton {
