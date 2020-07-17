@@ -7,7 +7,7 @@
       div.taskContent(:class="{'taskContentEditing': editTaskInput}")
         p.taskText(v-show="!editTaskInput") {{ task.text }}
         textarea-autosize.taskEditInput(v-show="editTaskInput" ref="editTaskInput" v-model="task.text"
-        :min-height="50" 
+        :min-height="51" 
         :autosize="true"
         )
         div.editButtonsContainer(v-show="editTaskInput")
